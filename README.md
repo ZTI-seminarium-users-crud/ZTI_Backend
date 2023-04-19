@@ -1,6 +1,6 @@
 
-## Flask Graphql server
-# Run locally
+# Flask Graphql server
+## Run locally
 
 Clone the project
 
