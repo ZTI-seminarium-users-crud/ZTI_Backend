@@ -1,0 +1,35 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Students {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    specialization: String!
+    degree: String!
+    semester: String!
+}
+
+type StudentResult {
+    success: Boolean!
+    errors: [String]
+    students: Students
+}
+type StudentsResult {
+    success: Boolean!
+    errors: [String]
+    students: [Students]
+}
+
+type Query {
+    listStudents: StudentsResult!
+    getStudents(id: ID!): StudentResult!
+}
+
+type Mutation {
+    createStudent(first_name: String!, last_name: String!, specialization: String!, degree: String!, semester: String!): StudentResult!
+    updateStudent(id: ID!, first_name: String, last_name: String, specialization: String, degree: String, semester: String): StudentResult!
+    deleteStudent(id: ID): StudentResult!
+}
