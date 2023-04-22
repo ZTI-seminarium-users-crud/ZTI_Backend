@@ -1,5 +1,6 @@
-from .models import Students
 from ariadne import convert_kwargs_to_snake_case
+
+from api.models import Students
 
 
 def listStudents_resolver(obj, info):
