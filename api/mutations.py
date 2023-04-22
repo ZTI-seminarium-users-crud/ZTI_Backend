@@ -3,14 +3,14 @@ from datetime import date
 from ariadne import convert_kwargs_to_snake_case
 
 from api import db
-from api.models import Students
+from api.models import Person
 
 
 @convert_kwargs_to_snake_case
 def create_student_resolver(obj, info, first_name, last_name, specialization, degree, semester):
     try:
         today = date.today()
-        student = Students(
+        student = Person(
             first_name=first_name, last_name=last_name, specialization=specialization, degree=degree, semester=semester
         )
         db.session.add(student)
@@ -31,7 +31,7 @@ def create_student_resolver(obj, info, first_name, last_name, specialization, de
 @convert_kwargs_to_snake_case
 def update_student_resolver(obj, info, id, first_name, last_name, specialization, degree, semester):
     try:
-        student = Students.query.get(id)
+        student = Person.query.get(id)
         if student:
             student.first_name = first_name
             student.last_name = last_name
@@ -56,7 +56,7 @@ def update_student_resolver(obj, info, id, first_name, last_name, specialization
 @convert_kwargs_to_snake_case
 def delete_student_resolver(obj, info, id):
     try:
-        student = Students.query.get(id)
+        student = Person.query.get(id)
         db.session.delete(student)
         db.session.commit()
         payload = {"success": True, "post": student.to_dict()}
