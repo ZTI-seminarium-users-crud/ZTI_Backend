@@ -11,7 +11,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd flask-graphql
+  cd ZTI_Backend/flask-graphql
 ```
 
 Install dependencies
