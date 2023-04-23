@@ -17,14 +17,17 @@ type StudentResult {
     errors: [String]
     students: Students
 }
+
 type StudentsResult {
     success: Boolean!
     errors: [String]
     students: [Students]
+    total_count: Int!
+    page: Int!
 }
 
 type Query {
-    listStudents: StudentsResult!
+    listStudents(limit: Int, offset: Int): StudentsResult!
     getStudents(id: ID!): StudentResult!
 }
 
