@@ -1,10 +1,11 @@
-from .models import Students
 from ariadne import convert_kwargs_to_snake_case
+
+from api.models import Person
 
 
 def listStudents_resolver(obj, info):
     try:
-        students = [student.to_dict() for student in Students.query.all()]
+        students = [student.to_dict() for student in Person.query.all()]
         print(students)
         payload = {
             "success": True,
@@ -20,7 +21,7 @@ def listStudents_resolver(obj, info):
 @convert_kwargs_to_snake_case
 def getStudents_resolver(obj, info, id):
     try:
-        student = Students.query.get(id)
+        student = Person.query.get(id)
         payload = {
             "success": True,
             "students": student.to_dict()
