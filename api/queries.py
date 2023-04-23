@@ -3,13 +3,16 @@ from ariadne import convert_kwargs_to_snake_case
 from api.models import Person
 
 
-def listStudents_resolver(obj, info):
+def listStudents_resolver(obj, info, limit=10, offset=0):
     try:
-        students = [student.to_dict() for student in Person.query.all()]
-        print(students)
+        students = [student.to_dict() for student in Person.query.slice(offset, offset+limit).all()]
+        total_count = Person.query.count()
+        current_page = int(offset / limit) + 1
         payload = {
             "success": True,
-            "students": students
+            "students": students,
+            "total_count": total_count,
+            "page": current_page
         }
     except Exception as error:
         payload = {
