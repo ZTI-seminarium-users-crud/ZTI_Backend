@@ -27,7 +27,7 @@ type StudentsResult {
 }
 
 type Query {
-    listStudents(limit: Int, offset: Int): StudentsResult!
+    listStudents(limit: Int, offset: Int, specialization: [String], degree: [String], semester: [String]): StudentsResult!
     getStudents(id: ID!): StudentResult!
 }
 
