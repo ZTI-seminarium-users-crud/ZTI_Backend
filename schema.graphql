@@ -3,7 +3,7 @@ schema {
     mutation: Mutation
 }
 
-type Students {
+type Student {
     id: ID!
     first_name: String!
     last_name: String!
@@ -15,20 +15,20 @@ type Students {
 type StudentResult {
     success: Boolean!
     errors: [String]
-    students: Students
+    students: Student
 }
 
 type StudentsResult {
     success: Boolean!
     errors: [String]
-    students: [Students]
+    students: [Student]
     total_count: Int!
     page: Int!
 }
 
 type Query {
-    listStudents(limit: Int, offset: Int, specialization: [String], degree: [String], semester: [String]): StudentsResult!
-    getStudents(id: ID!): StudentResult!
+    readStudents(limit: Int, offset: Int, specialization: [String], degree: [String], semester: [String]): StudentsResult!
+    readStudent(id: ID!): StudentResult!
 }
 
 type Mutation {
