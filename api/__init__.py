@@ -1,8 +1,6 @@
-
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, text
 
 app = Flask(__name__)
 CORS(app)
@@ -19,4 +17,4 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def hello():
-    return 'My First API !!'
+    return 'My First API SDasdasda!!'

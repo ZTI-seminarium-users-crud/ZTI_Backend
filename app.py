@@ -4,15 +4,15 @@ from ariadne import load_schema_from_path, make_executable_schema, \
     graphql_sync, snake_case_fallback_resolvers, ObjectType
 from ariadne.explorer import ExplorerGraphiQL
 from flask import request, jsonify
-from api.queries import listStudents_resolver, getStudents_resolver
+from api.queries import read_students_resolver, read_student_resolver
 from api.mutations import create_student_resolver, update_student_resolver, delete_student_resolver
 
 query = ObjectType("Query")
 mutation = ObjectType("Mutation")
 explorer_html = ExplorerGraphiQL().html(None)
 
-query.set_field("listStudents", listStudents_resolver)
-query.set_field("getStudents", getStudents_resolver)
+query.set_field("readStudents", read_students_resolver)
+query.set_field("readStudent", read_student_resolver)
 
 mutation.set_field("createStudent", create_student_resolver)
 mutation.set_field("updateStudent", update_student_resolver)

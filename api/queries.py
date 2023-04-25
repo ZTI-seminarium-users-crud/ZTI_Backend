@@ -1,12 +1,19 @@
 from ariadne import convert_kwargs_to_snake_case
+from sqlalchemy import or_
+from api.models import Student
 
-from api.models import Person
 
-
-def listStudents_resolver(obj, info, limit=10, offset=0):
+def read_students_resolver(obj, info, limit=10, offset=0, specialization=None, degree=None, semester=None):
     try:
-        students = [student.to_dict() for student in Person.query.slice(offset, offset+limit).all()]
-        total_count = Person.query.count()
+        query = Student.query
+        if specialization:
+            query = query.filter(or_(Student.specialization.in_(specialization), Student.specialization is None))
+        if degree:
+            query = query.filter(or_(Student.degree.in_(degree), Student.degree is None))
+        if semester:
+            query = query.filter(or_(Student.semester.in_(semester), Student.semester is None))
+        students = [student.to_dict() for student in query.slice(offset, offset + limit).all()]
+        total_count = query.count()
         current_page = int(offset / limit) + 1
         payload = {
             "success": True,
@@ -22,9 +29,9 @@ def listStudents_resolver(obj, info, limit=10, offset=0):
     return payload
 
 @convert_kwargs_to_snake_case
-def getStudents_resolver(obj, info, id):
+def read_student_resolver(obj, info, id):
     try:
-        student = Person.query.get(id)
+        student = Student.query.get(id)
         payload = {
             "success": True,
             "students": student.to_dict()
