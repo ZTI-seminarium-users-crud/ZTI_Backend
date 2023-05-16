@@ -5,9 +5,9 @@ Wyświetla statyczny plik pomocniczy z listą endpointów:
 /static/help.txt
 
 >)Zwraca wartości filtra:
-/filters/<filter>
+    /filters/<filter>
 Dostępne filtry:
-degrees, semesters, specializations
+    degrees, semesters, specializations
 
 >)Wyświetla stronę z rekordami:
     /students
