@@ -41,3 +41,61 @@ def graphql_server():
 
     status_code = 200 if success else 400
     return jsonify(result), status_code
+
+
+@app.route("/student:<id>", methods=["GET"])
+def read_record(id):
+
+    result = read_student_resolver(None, None, id)
+
+    if result["success"]:
+        columns = request.args.get("columns")
+        if columns is None:
+            return result["student"]
+        else:
+            selected_columns = [item.strip() for item in columns.split(',')]
+            return {key: result["student"][key] for key in selected_columns}
+    else:
+        return result["errors"]
+
+
+@app.route("/filters/<filter>", methods=["GET"])
+def read_filters(filter):
+    try:
+        f = open("api/filters/"+filter)
+    except FileNotFoundError:
+        return "Error. There's no such filter"
+    else:
+        with f:
+            filter_values = [line.rstrip('\n') for line in f]
+        return filter_values
+
+
+@app.route("/students", methods=["GET"])
+def read_page():
+
+    specialization = request.args.get("specialization")
+    degree = request.args.get("degree")
+    semester = request.args.get("semester")
+    page_size = request.args.get("pageSize")
+    page_number = request.args.get("pageNumber")
+
+    result = read_students_resolver(None, None,
+                                    int(page_size) if page_size else 10,
+                                    int(page_number)*int(page_size) if page_number and page_size else 0,
+                                    [item.strip() for item in specialization.split(',')] if specialization else None,
+                                    [item.strip() for item in degree.split(',')] if degree else None,
+                                    [item.strip() for item in semester.split(',')] if semester else None)
+    if result["success"]:
+        columns = request.args.get("columns")
+        if columns is None:
+            return result["students"]
+        else:
+            selected_columns = [item.strip() for item in columns.split(',')]
+            selected_result = []
+            for student in result["students"]:
+                record = {key: student[key] for key in selected_columns}
+                selected_result.append(record)
+            return selected_result
+    else:
+        return result["errors"]

@@ -8,8 +8,14 @@ type Student {
     first_name: String!
     last_name: String!
     specialization: String!
-    degree: String!
-    semester: String!
+    degree: Int!
+    semester: Int!
+    is_male: Boolean!
+    average_grade: Float
+    hair_color: String
+    height: Float
+    weight: Float
+    age: Int
 }
 
 type StudentResult {
@@ -32,7 +38,9 @@ type Query {
 }
 
 type Mutation {
-    createStudent(first_name: String!, last_name: String!, specialization: String!, degree: String!, semester: String!): StudentResult!
-    updateStudent(id: ID!, first_name: String, last_name: String, specialization: String, degree: String, semester: String): StudentResult!
+    createStudent(first_name: String!, last_name: String!, specialization: String!, degree: String!, semester: String!, is_male: Boolean!,
+                  average_grade: Float, hair_color: String, height: Float, weight: Float, age: Int): StudentResult!
+    updateStudent(id: ID!, first_name: String, last_name: String, specialization: String, degree: String, semester: String, is_male: Boolean!,
+                  average_grade: Float, hair_color: String, height: Float, weight: Float, age: Int): StudentResult!
     deleteStudent(id: ID): StudentResult!
 }

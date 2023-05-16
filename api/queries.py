@@ -34,13 +34,13 @@ def read_student_resolver(obj, info, id):
         student = Student.query.get(id)
         payload = {
             "success": True,
-            "students": student.to_dict()
+            "student": student.to_dict()
         }
 
     except AttributeError:  # todo not found
         payload = {
             "success": False,
-            "errors": [f"Todo item matching id {id} not found"]
+            "errors": [f"Error / read_student_resolver: item matching id {id} not found"]
         }
 
     return payload
