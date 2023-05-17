@@ -2,7 +2,7 @@ from api import db
 
 
 class Student(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     specialization = db.Column(db.String)

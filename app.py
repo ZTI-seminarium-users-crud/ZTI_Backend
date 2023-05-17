@@ -99,3 +99,73 @@ def read_page():
             return selected_result
     else:
         return result["errors"]
+
+
+@app.route("/student:<id>", methods=["DELETE"])
+def delete_student(id):
+    result = delete_student_resolver(None, None, id)
+
+    if result["success"]:
+        return "Student deleted successfully"
+    else:
+        return result["errors"]
+    
+@app.route("/student", methods=["POST"])
+def add_new_student():
+    # Get the request payload
+    input_data = request.json
+
+    # Extract the values from the payload
+    first_name = input_data.get("first_name", None)
+    #last_name is the only not optional parameter
+    last_name = input_data.get("last_name", None)
+    age = input_data.get("age", None)
+    average_grade = input_data.get("average_grade", None)
+    degree = input_data.get("degree", None)
+    hair_color = input_data.get("hair_color", None)
+    height = input_data.get("height", None)
+    is_male = input_data.get("is_male", None)
+    semester = input_data.get("semester", None)
+    specialization = input_data.get("specialization", None)
+    weight = input_data.get("weight", None)
+
+    # Prepare the input data for the resolver
+   
+
+    # Call the create_student_resolver mutation resolver
+    result = create_student_resolver(None, None, first_name, last_name, age, average_grade, degree, hair_color, height, is_male, semester, specialization, weight)
+
+    # Check if the mutation was successful
+    if result["success"]:
+         return "Student added successfully"
+    else:
+        return result["errors"]
+
+
+@app.route("/student:<id>", methods=["PUT"])
+def update_student(id):
+    # Get the request payload
+    input_data = request.json
+    first_name = input_data.get("first_name", None)
+    #last_name is the only not optional parameter
+    last_name = input_data.get("last_name", None)
+    age = input_data.get("age", None)
+    average_grade = input_data.get("average_grade", None)
+    degree = input_data.get("degree", None)
+    hair_color = input_data.get("hair_color", None)
+    height = input_data.get("height", None)
+    is_male = input_data.get("is_male", None)
+    semester = input_data.get("semester", None)
+    specialization = input_data.get("specialization", None)
+    weight = input_data.get("weight", None)
+    # Prepare the input data for the resolver
+    
+
+    # Call the update_student_resolver mutation resolver
+    result = update_student_resolver(None, None, id, first_name, last_name, age, average_grade, degree, hair_color, height, is_male, semester, specialization, weight)
+
+    # Check if the mutation was successful
+    if result["success"]:
+        return "Student updated successfully"
+    else:
+        return result["errors"]

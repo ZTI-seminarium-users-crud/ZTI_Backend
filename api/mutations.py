@@ -7,12 +7,13 @@ from api.models import Student
 
 
 @convert_kwargs_to_snake_case
-def create_student_resolver(obj, info, first_name, last_name, specialization, degree, semester):
+def create_student_resolver(obj, info, first_name, last_name, age, average_grade, degree, hair_color, height, is_male, semester, specialization, weight):
     try:
         today = date.today()
         student = Student(
-            first_name=first_name, last_name=last_name, specialization=specialization, degree=degree, semester=semester
+            first_name=first_name, last_name=last_name, specialization=specialization, degree=degree, semester=semester, age=age, average_grade=average_grade, hair_color=hair_color, height=height, is_male=is_male, weight=weight
         )
+        
         db.session.add(student)
         db.session.commit()
         payload = {
@@ -29,7 +30,7 @@ def create_student_resolver(obj, info, first_name, last_name, specialization, de
     return payload
 
 @convert_kwargs_to_snake_case
-def update_student_resolver(obj, info, id, first_name, last_name, specialization, degree, semester):
+def update_student_resolver(obj, info, id, first_name, last_name, age, average_grade, degree, hair_color, height, is_male, semester, specialization, weight):
     try:
         student = Student.query.get(id)
         if student:
@@ -38,6 +39,12 @@ def update_student_resolver(obj, info, id, first_name, last_name, specialization
             student.specialization = specialization
             student.degree = degree
             student.semester = semester
+            student.age = age
+            student.average_grade = average_grade
+            student.hair_color = hair_color
+            student.height = height
+            student.is_male = is_male
+            student.weight = weight
         db.session.add(student)
         db.session.commit()
         payload = {
