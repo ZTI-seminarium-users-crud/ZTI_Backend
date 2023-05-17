@@ -24,11 +24,36 @@ Opcjonalne parametry:
 Przykład użycia:
     <api>/api/student:3?columns=id,%20first_name,%20last_name,%20specialization
 
-TODO
 >)Aktualizuje istniejący rekord na podstawie id:
+   PUT /student:<id>
+Przykład użycia:
+curl --location --request PUT 'http://127.0.0.1:5000/student:222' \
+--header 'Content-Type: application/json' \
+--data '{
+  "first_name": "Alice",
+  "last_name": "Johnson",
+  "semester": 4,
+  "age": 22,
+  "specialization": "Computer Science",
+  "degree": 1,
+  "is_male": false
+}'
 
-TODO
 >)Usuwa istniejący rekord na postawie id:
+    DELETE /student:<id>
+Przykład użycia:
+curl --location --request DELETE 'http://127.0.0.1:5000/student:222'
 
-TODO
 >)Dodaje nowy rekord:
+    POST /student
+Przykład użycia:
+curl --location 'http://127.0.0.1:5000/student' \
+--header 'Content-Type: application/json' \
+--data '{
+  "first_name": "John",
+  "last_name": "Doe",
+  "degree": 1,
+  "semester": 3,
+  "specialization": "Software Engineering"
+
+}'
