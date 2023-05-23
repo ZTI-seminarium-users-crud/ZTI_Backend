@@ -54,6 +54,7 @@ def read_record(id):
             return result["student"]
         else:
             selected_columns = [item.strip() for item in columns.split(',')]
+            selected_columns.append("id")
             return {key: result["student"][key] for key in selected_columns}
     else:
         return result["errors"]
@@ -92,6 +93,7 @@ def read_page():
             return result["students"]
         else:
             selected_columns = [item.strip() for item in columns.split(',')]
+            selected_columns.append("id")
             selected_result = []
             for student in result["students"]:
                 record = {key: student[key] for key in selected_columns}
