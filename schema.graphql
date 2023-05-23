@@ -21,7 +21,7 @@ type Student {
 type StudentResult {
     success: Boolean!
     errors: [String]
-    students: Student
+    student: Student
 }
 
 type StudentsResult {
